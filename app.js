@@ -7,7 +7,7 @@ const authorRoutes = require("./authors/authors.routes");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = 8888;
+const PORT = 8888 || process.env.PORT;
 
 //establish connection to database
 mongoose.connect(
