@@ -1,7 +1,10 @@
 require("dotenv").config();
 const express = require("express");
+const helmet = require("helmet");
 const bodyParser = require("body-parser");
+//routes
 const authorRoutes = require("./authors/authors.routes");
+const userRoutes = require("./users/users.routes");
 
 //import mongoose
 const mongoose = require("mongoose");
@@ -25,10 +28,16 @@ mongoose.connect(
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+// protect api using helmet
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(helmet());
+app.disable("x-powered-by");
+
 app.use("/api/v1", authorRoutes);
+app.use("/api/v1", userRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

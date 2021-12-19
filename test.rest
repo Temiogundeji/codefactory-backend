@@ -1,6 +1,2 @@
 https://codefactory-backrnd.herokuapp.com/api/v1/author/auth/login
 
-{
-    username:"yusuffoiff@gmail.com",
-    password:"Tebdf"
-}
