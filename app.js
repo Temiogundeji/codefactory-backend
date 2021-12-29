@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const authorRoutes = require("./authors/authors.routes");
 const userRoutes = require("./users/users.routes");
 const categoryRoutes = require("./categories/categories.routes");
+const courseRoutes = require("./courses/courses.routes");
+
 //import mongoose
 const mongoose = require("mongoose");
 
@@ -39,6 +41,7 @@ app.disable("x-powered-by");
 app.use("/api/v1", authorRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", categoryRoutes);
+app.use("/api/v1", courseRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

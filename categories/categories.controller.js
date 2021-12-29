@@ -25,7 +25,22 @@ const createCategory = async (req, res, next) => {
     }
     const savedCategory = await newCategory.save();
     res.status(201).send({
-      author: savedCategory,
+      category: savedCategory,
+      status: "success",
+    });
+  } catch (e) {
+    return res.status(400).json({
+      message: e.message,
+      status: "error",
+    });
+  }
+};
+
+const getCategories = async (req, res, next) => {
+  try {
+    const categories = await categoryModel.find({});
+    res.status(201).send({
+      categories: categories,
       status: "success",
     });
   } catch (e) {
@@ -38,4 +53,5 @@ const createCategory = async (req, res, next) => {
 
 module.exports = {
   createCategory,
+  getCategories,
 };
