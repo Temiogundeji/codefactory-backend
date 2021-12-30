@@ -12,7 +12,7 @@ const courseRoutes = require("./courses/courses.routes");
 const mongoose = require("mongoose");
 
 const app = express();
-const PORT = process.env.PORT || 8888;
+const PORT = process.env.PORT || 3000;
 
 //establish connection to database
 mongoose.connect(
