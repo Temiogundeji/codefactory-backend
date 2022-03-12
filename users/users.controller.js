@@ -68,7 +68,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const user = await usersModel.findOne({ email: email });
+    const user = await usersModel.findOne({ email: email }).populate("courses");
     if (!user) {
       return res.status(400).json({
         message: "You do not have an account on this platform",

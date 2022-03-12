@@ -7,6 +7,8 @@ const authorRoutes = require("./authors/authors.routes");
 const userRoutes = require("./users/users.routes");
 const categoryRoutes = require("./categories/categories.routes");
 const courseRoutes = require("./courses/courses.routes");
+const videoRoutes = require("./videos/video.routes");
+const linkRoutes = require("./links/links.routes");
 
 //import mongoose
 const mongoose = require("mongoose");
@@ -30,9 +32,6 @@ mongoose.connect(
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
-// protect api using helmet
-
-// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(helmet());
@@ -42,6 +41,8 @@ app.use("/api/v1", authorRoutes);
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", categoryRoutes);
 app.use("/api/v1", courseRoutes);
+app.use("/api/v1", videoRoutes);
+app.use("/api/v1", linkRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

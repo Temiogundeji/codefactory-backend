@@ -1,22 +1,19 @@
 const mongoose = require("mongoose");
-
-const userSchema = mongoose.Schema(
+const { Schema } = require("mongoose");
+const linksSchema = mongoose.Schema(
   {
-    username: {
+    title: {
       type: String,
       required: true,
     },
-    email: {
+    linkTexts: {
       type: String,
       required: true,
     },
-    password: {
-      type: String,
+    course: {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
       required: true,
-    },
-    profilePics: {
-      type: String,
-      required: false,
     },
   },
   {
@@ -24,10 +21,10 @@ const userSchema = mongoose.Schema(
   }
 );
 
-userSchema.method("toJSON", function () {
+linksSchema.method("toJSON", function () {
   const { __v, _id, ...object } = this.toObject();
   object.id = _id;
   return object;
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Link", linksSchema);

@@ -1,27 +1,26 @@
-const courseModel = require("./courses.model");
+const coursesModel = require("./courses.model");
+
 const createCourse = async (req, res, next) => {
-  const { title, about, duration, category, author } = req.body;
-  //Convert category and author to number
-  const categoryNumber = Number(category);
-  const authorNumber = Number(category);
+  const { title, about, duration, category, author, isFavorite } = req.body;
   try {
     const { path } = req.file;
-    if (!title || !about || !duration || !category || !author) {
+    if (!title || !about || !duration || !category || !author || !isFavorite) {
       return res.status(400).send({
         status: "error",
         error: "Some values are missing!",
       });
     }
-    const newCourse = new courseModel({
+    const newCourse = new coursesModel({
       title,
       image: path,
       about,
       duration,
-      categoryNumber,
-      authorNumber,
+      category,
+      author,
+      isFavorite,
     });
 
-    const course = await courseModel.findOne({
+    const course = await coursesModel.findOne({
       title,
     });
 
@@ -45,8 +44,13 @@ const createCourse = async (req, res, next) => {
 
 const getCourses = async (req, res, next) => {
   try {
-    const courses = await courseModel.find({});
-    res.status(201).send({
+    const courses = await coursesModel.find({}).populate({
+      path: "videos",
+      select: "title duration source author",
+    });
+
+    console.log(courses);
+    res.status(200).send({
       courses: courses,
       status: "success",
     });

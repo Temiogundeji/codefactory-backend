@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const courseSchema = mongoose.Schema(
   {
     title: {
@@ -18,18 +17,38 @@ const courseSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "Author" },
+    isFavorite: {
+      type: Boolean,
+      required: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+    },
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Author",
+    },
   },
   {
     timestamps: true,
   }
 );
-
-courseSchema.method("toJSON", function () {
-  const { __v, _id, ...object } = this.toObject();
-  object.id = _id;
-  return object;
+//Add videos
+courseSchema.virtual("videos", {
+  ref: "Video",
+  localField: "_id",
+  foreignField: "course",
 });
+
+//Add additional links
+courseSchema.virtual("links", {
+  ref: "Link",
+  localField: "_id",
+  foreignField: "course",
+});
+
+courseSchema.set("toObject", { virtuals: true });
+courseSchema.set("toJSON", { virtuals: true });
 
 module.exports = mongoose.model("Course", courseSchema);
