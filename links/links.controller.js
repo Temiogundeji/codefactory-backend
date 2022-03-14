@@ -15,18 +15,18 @@ const createLink = async (req, res, next) => {
       course,
     });
 
-    const category = await linkModel.findOne({
+    const link = await linkModel.findOne({
       title,
     });
 
-    if (category) {
+    if (link) {
       return res.status(400).json({
         message: "Link already exists!",
       });
     }
     const savedLink = await newLink.save();
     res.status(201).send({
-      category: savedLink,
+      link: savedLink,
       status: "success",
     });
   } catch (e) {
